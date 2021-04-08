@@ -3,6 +3,8 @@ Projeto da disciplina de Sistemas Microprocessados - Engenharia de Computação 
 
 ![alt text](https://github.com/joirneto/Projeto-de-Gerenciador-de-Vagas-de-Estacionamento-com-STM32F103C6-SENSOR-PIR-PROTEUS/images/Diagrama-de-Blocos.jpg?raw=true)
 
-![](https://github.com/joirneto/Projeto-de-Gerenciador-de-Vagas-de-Estacionamento-com-STM32F103C6-SENSOR-PIR-PROTEUS/images/Diagrama-de-Blocos.jpg)
+![](https://raw.githubusercontent.com/joirneto/Projeto-de-Gerenciador-de-Vagas-de-Estacionamento-com-STM32F103C6-SENSOR-PIR-PROTEUS/main/images/Diagrama%20de%20Blocos.jpg)
 
-<img src="https://github.com/joirneto/Projeto-de-Gerenciador-de-Vagas-de-Estacionamento-com-STM32F103C6-SENSOR-PIR-PROTEUS/images/Diagrama-de-Blocos.jpg">
+<img src="https://raw.githubusercontent.com/joirneto/Projeto-de-Gerenciador-de-Vagas-de-Estacionamento-com-STM32F103C6-SENSOR-PIR-PROTEUS/main/images/Diagrama%20de%20Blocos.jpg">
+
+
