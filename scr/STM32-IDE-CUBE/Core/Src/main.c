@@ -66,7 +66,7 @@ static void MX_GPIO_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	int vagas = 300;
+	int vagas = 5;
 
   /* USER CODE END 1 */
 
@@ -127,34 +127,50 @@ int main(void)
   while (1)
   {
 	  Lcd_cursor(&lcd, 0, 0);
-	 	  Lcd_string(&lcd,"VAGAS");
-	 	  Lcd_cursor(&lcd, 1, 0);
+	  Lcd_string(&lcd,"VAGAS");
+	  Lcd_cursor(&lcd, 1, 0);
 
-	 	  char snum[5];
+	  char snum[5];
 
-	 	  // convert 123 to string [buf]
-	 	  itoa(vagas, snum, 10);
+	  // convert 123 to string [buf]
+	  itoa(vagas, snum, 10);
 
-	 	  // print our string
-	 	  printf("%s\n", snum);
-	 	  Lcd_string(&lcd, snum);
-	 	  HAL_Delay(50);
-	 	  Lcd_clear(&lcd);
-	 	  HAL_Delay(50);
+	  // print our string
+	  printf("%s\n", snum);
+	  Lcd_string(&lcd, snum);
+	  HAL_Delay(100);
+	  Lcd_clear(&lcd);
 
 	  if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_0)){
-		  vagas++;
-		  Lcd_cursor(&lcd, 0, 0);
-		 	 	  Lcd_string(&lcd,"AGUARDE");
-		  HAL_Delay(1000);
-		  Lcd_clear(&lcd);
+		 if(vagas!=0){
+			 vagas--;
+			 while(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_0)){
+				 Lcd_cursor(&lcd, 0, 0);
+				 Lcd_string(&lcd,"AGUARDE");
+			 }
+		 }
+		 else{
+			 Lcd_cursor(&lcd, 0, 0);
+			 Lcd_string(&lcd,"LOTADO");
+			 HAL_Delay(100);
+		 }
 
+		 Lcd_clear(&lcd);
 	  }
 	  if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_1)){
-	  		  vagas--;
-	  	 	  Lcd_string(&lcd,"AGUARDE");
-	  			  HAL_Delay(1000);
-	  			  Lcd_clear(&lcd);
+		  if(vagas<5){
+			vagas++;
+			while(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_1)){
+				 Lcd_cursor(&lcd, 0, 0);
+				 Lcd_string(&lcd,"AGUARDE");
+			 }
+		  }
+		  else{
+			  Lcd_cursor(&lcd, 0, 0);
+			  Lcd_string(&lcd,"DISPONIVEL");
+			  HAL_Delay(100);
+		  }
+		  Lcd_clear(&lcd);
 	  }
 
 
