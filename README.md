@@ -22,7 +22,7 @@ Realizamos a inclusão ao projeto um sensor de temperatura, simulando um sinistr
 
 DIAGRAMA DE BLOCOS
 
-<img src="https://raw.githubusercontent.com/joirneto/Projeto-de-Gerenciador-de-Vagas-de-Estacionamento-com-STM32F103C6-SENSOR-PIR-PROTEUS/main/images/Diagrama%20de%20Blocos.jpg">
+<img src="https://github.com/joirneto/Projeto-de-Gerenciador-de-Vagas-de-Estacionamento-com-STM32F103C6-PIR-LCD2X16-LM35-USART-PROTEUS/blob/main/images/BPMN%202.0.jpeg">
 
 
 PROJETO PROTEUS
