@@ -170,23 +170,14 @@ int main(void)
 
 			  //VERIFICANDO SE OCORREU ENTRADA DE VEÍCULOS
 			  if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_0)){
-				 if(vagas!=0){
-					 vagas--;
-					 while(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_0)){
-						 Lcd_cursor(&lcd, 0, 0);
-						 Lcd_string(&lcd,"AGUARDE");
-					 }
-					 Lcd_clear(&lcd);
+				  while(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_0)){
 					 Lcd_cursor(&lcd, 0, 0);
-					 Lcd_string(&lcd,"SIGA EM FRETE");
-					 HAL_Delay(50);
+					 Lcd_string(&lcd,"AGUARDE");
 				 }
-				 else{
-					 Lcd_cursor(&lcd, 0, 0);
-					 Lcd_string(&lcd,"LOTADO");
-					 HAL_Delay(100);
-				 }
-
+				 Lcd_clear(&lcd);
+				 Lcd_cursor(&lcd, 0, 0);
+				 Lcd_string(&lcd,"SIGA EM FRETE");
+				 HAL_Delay(50);
 				 Lcd_clear(&lcd);
 			  }
 
