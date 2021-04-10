@@ -15,12 +15,7 @@ Realizamos a inclusão ao projeto um sensor de temperatura, simulando um sinistr
 * LM35
 <img src="https://github.com/joirneto/Projeto-de-Gerenciador-de-Vagas-de-Estacionamento-com-STM32F103C6-SENSOR-PIR-PROTEUS/blob/main/images/LM35.png">
 
-
-
-
-
-
-DIAGRAMA DE BLOCOS
+**DIAGRAMA DE BLOCOS**
 
 <img src="https://github.com/joirneto/Projeto-de-Gerenciador-de-Vagas-de-Estacionamento-com-STM32F103C6-PIR-LCD2X16-LM35-USART-PROTEUS/blob/main/images/BPMN%202.0.jpeg">
 
