@@ -27,6 +27,7 @@ Realizamos a inclusão ao projeto um sensor de temperatura, simulando um sinistr
 **CONFIGURAÇÃO STM32CUBE-IDE**
 
 <img src="https://github.com/joirneto/Projeto-de-Gerenciador-de-Vagas-de-Estacionamento-com-STM32F103C6-PIR-LCD2X16-LM35-USART-PROTEUS/blob/main/images/Configura%C3%A7%C3%A3o%20stm32.png/">
+
 - PA3 a PA7 configuradas GPIO_Output e renomeadas com a identificação das entradas das 4 entradas do LM016 (LCD2x16);
 
 - PA8 e PA9 configuradas GPIO_Output e renomeadas com a identificação de RS (Register Set) e EN (Enable) do LM016 (LCD2x16);
