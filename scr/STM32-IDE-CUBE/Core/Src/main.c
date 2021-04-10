@@ -25,6 +25,7 @@
 #include "lcd.h"
 #include "stdio.h"
 
+
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -42,6 +43,9 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+ADC_HandleTypeDef hadc1;
+
+UART_HandleTypeDef huart1;
 
 /* USER CODE BEGIN PV */
 
@@ -50,12 +54,19 @@
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
+static void MX_ADC1_Init(void);
+static void MX_USART1_UART_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+uint8_t usart_temp[17];
+int adc_buffer;
+float cordinet;
+
+
 
 /* USER CODE END 0 */
 
@@ -88,7 +99,11 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_ADC1_Init();
+  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
+  HAL_ADC_Start(&hadc1);
+
   Lcd_PortType ports [] = {
 		D4_GPIO_Port,
 		D5_GPIO_Port,
@@ -126,6 +141,35 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+
+	  char snum1[5];
+	  adc_buffer = (float)HAL_ADC_GetValue(&hadc1)/8.215;
+
+	  // convert 123 to string [buf]
+	  itoa(adc_buffer, snum1, 10);
+	  Lcd_cursor(&lcd, 0, 0);
+	  Lcd_string(&lcd,"TEMPERATURA");
+	  Lcd_cursor(&lcd, 1, 0);
+	  Lcd_string(&lcd,snum1);
+	  HAL_Delay(50);
+	  Lcd_clear(&lcd);
+
+	//  unsigned char mdata[] = "TA";
+
+	//  cordinet = (float)adc_buffer /8.215;
+	//  sprintf((char *)usart_temp,"AN1:%.1f C \r\n",adc_buffer); // @suppress("Float formatting support")
+	//  HAL_UART_Transmit(&huart1,&mdata,1,100);
+
+
+	//   	uint16_t buffer_size = strlen(&mdata);
+	   	uint8_t CRLFbuff[] = "\r\n";
+	   	uint8_t Tempbuff[] = "T: ";
+
+	   	HAL_UART_Transmit(&huart1, Tempbuff, 3, 0xFF);
+	   	HAL_UART_Transmit(&huart1, (uint8_t *)snum1, 10, 100); // ok
+	   	HAL_UART_Transmit(&huart1, CRLFbuff, 2, 0xFF); // ok
+
+
 	  Lcd_cursor(&lcd, 0, 0);
 	  Lcd_string(&lcd,"VAGAS");
 	  Lcd_cursor(&lcd, 1, 0);
@@ -190,6 +234,7 @@ void SystemClock_Config(void)
 {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+  RCC_PeriphCLKInitTypeDef PeriphClkInit = {0};
 
   /** Initializes the RCC Oscillators according to the specified parameters
   * in the RCC_OscInitTypeDef structure.
@@ -215,6 +260,90 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+  PeriphClkInit.PeriphClockSelection = RCC_PERIPHCLK_ADC;
+  PeriphClkInit.AdcClockSelection = RCC_ADCPCLK2_DIV2;
+  if (HAL_RCCEx_PeriphCLKConfig(&PeriphClkInit) != HAL_OK)
+  {
+    Error_Handler();
+  }
+}
+
+/**
+  * @brief ADC1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_ADC1_Init(void)
+{
+
+  /* USER CODE BEGIN ADC1_Init 0 */
+
+  /* USER CODE END ADC1_Init 0 */
+
+  ADC_ChannelConfTypeDef sConfig = {0};
+
+  /* USER CODE BEGIN ADC1_Init 1 */
+
+  /* USER CODE END ADC1_Init 1 */
+  /** Common config
+  */
+  hadc1.Instance = ADC1;
+  hadc1.Init.ScanConvMode = ADC_SCAN_DISABLE;
+  hadc1.Init.ContinuousConvMode = ENABLE;
+  hadc1.Init.DiscontinuousConvMode = DISABLE;
+  hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
+  hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
+  hadc1.Init.NbrOfConversion = 1;
+  if (HAL_ADC_Init(&hadc1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /** Configure Regular Channel
+  */
+  sConfig.Channel = ADC_CHANNEL_1;
+  sConfig.Rank = ADC_REGULAR_RANK_1;
+  sConfig.SamplingTime = ADC_SAMPLETIME_1CYCLE_5;
+  if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN ADC1_Init 2 */
+
+  /* USER CODE END ADC1_Init 2 */
+
+}
+
+/**
+  * @brief USART1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_USART1_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART1_Init 0 */
+
+  /* USER CODE END USART1_Init 0 */
+
+  /* USER CODE BEGIN USART1_Init 1 */
+
+  /* USER CODE END USART1_Init 1 */
+  huart1.Instance = USART1;
+  huart1.Init.BaudRate = 9600;
+  huart1.Init.WordLength = UART_WORDLENGTH_8B;
+  huart1.Init.StopBits = UART_STOPBITS_1;
+  huart1.Init.Parity = UART_PARITY_NONE;
+  huart1.Init.Mode = UART_MODE_TX_RX;
+  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART1_Init 2 */
+
+  /* USER CODE END USART1_Init 2 */
+
 }
 
 /**
