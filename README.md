@@ -33,7 +33,10 @@ Realizamos a inclusão ao projeto um sensor de temperatura, simulando um sinistr
 - PA8 e PA9 configuradas GPIO_Output e renomeadas com a identificação de RS (Register Set) e EN (Enable) do LM016 (LCD2x16);
 
 - PB0 e PB1 configuradas GPIO_input(sem configuração de pull-down-up), utilizadas para receber as informações do Sensor PIR;
-- 
+
+- PA1 configurada para ACD. Alterado para Enabled a configuração Continous Conversion Mode;
+
+- PB6 e PB7 Configuradas para USART, mode Asynchronous.
 
 
 
