@@ -37,13 +37,13 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING
  16 .debug_macro  00018319  00000000  00000000  0002b938  2**0
                   CONTENTS, READONLY, DEBUGGING
- 17 .debug_line   0000784c  00000000  00000000  00043c51  2**0
+ 17 .debug_line   00007849  00000000  00000000  00043c51  2**0
                   CONTENTS, READONLY, DEBUGGING
- 18 .debug_str    00085c6b  00000000  00000000  0004b49d  2**0
+ 18 .debug_str    00085c62  00000000  00000000  0004b49a  2**0
                   CONTENTS, READONLY, DEBUGGING
- 19 .comment      0000007b  00000000  00000000  000d1108  2**0
+ 19 .comment      0000007b  00000000  00000000  000d10fc  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00002694  00000000  00000000  000d1184  2**2
+ 20 .debug_frame  00002694  00000000  00000000  000d1178  2**2
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -1501,7 +1501,7 @@ int main(void)
   while (1)
   {
 
-	  char snum1[5];
+	  char temp[5];
 	  adc_buffer = (float)HAL_ADC_GetValue(&hadc1)/8.215;
  8000ec8:	4883      	ldr	r0, [pc, #524]	; (80010d8 <main+0x308>)
  8000eca:	f000 fdf7 	bl	8001abc <HAL_ADC_GetValue>
@@ -1523,8 +1523,7 @@ int main(void)
  8000ef6:	4b80      	ldr	r3, [pc, #512]	; (80010f8 <main+0x328>)
  8000ef8:	601a      	str	r2, [r3, #0]
 
-	  // convert 123 to string [buf]
-	  itoa(adc_buffer, snum1, 10);
+	  itoa(adc_buffer, temp, 10);
  8000efa:	4b7f      	ldr	r3, [pc, #508]	; (80010f8 <main+0x328>)
  8000efc:	681b      	ldr	r3, [r3, #0]
  8000efe:	f107 0114 	add.w	r1, r7, #20
@@ -1548,7 +1547,7 @@ int main(void)
  8000f2a:	2101      	movs	r1, #1
  8000f2c:	4618      	mov	r0, r3
  8000f2e:	f7ff fe8d 	bl	8000c4c <Lcd_cursor>
-	  Lcd_string(&lcd,snum1);
+	  Lcd_string(&lcd,temp);
  8000f32:	f107 0214 	add.w	r2, r7, #20
  8000f36:	f107 031c 	add.w	r3, r7, #28
  8000f3a:	4611      	mov	r1, r2
@@ -1561,12 +1560,8 @@ int main(void)
  8000f48:	f107 031c 	add.w	r3, r7, #28
  8000f4c:	4618      	mov	r0, r3
  8000f4e:	f7ff fe97 	bl	8000c80 <Lcd_clear>
-	//  sprintf((char *)usart_temp,"AN1:%.1f C \r\n",adc_buffer); // @suppress("Float formatting support")
-	//  HAL_UART_Transmit(&huart1,&mdata,1,100);
 
-
-	//   	uint16_t buffer_size = strlen(&mdata);
-	   	uint8_t CRLFbuff[] = "\r\n";
+	  uint8_t CRLFbuff[] = "\r\n";
  8000f52:	4a6b      	ldr	r2, [pc, #428]	; (8001100 <main+0x330>)
  8000f54:	f107 0310 	add.w	r3, r7, #16
  8000f58:	6812      	ldr	r2, [r2, #0]
@@ -1575,23 +1570,22 @@ int main(void)
  8000f5e:	3302      	adds	r3, #2
  8000f60:	0c12      	lsrs	r2, r2, #16
  8000f62:	701a      	strb	r2, [r3, #0]
-	   	uint8_t Tempbuff[] = "T: ";
+	  uint8_t Tempbuff[] = "T: ";
  8000f64:	4b67      	ldr	r3, [pc, #412]	; (8001104 <main+0x334>)
  8000f66:	60fb      	str	r3, [r7, #12]
-
-	   	HAL_UART_Transmit(&huart1, Tempbuff, 3, 0xFF);
+	  HAL_UART_Transmit(&huart1, Tempbuff, 3, 0xFF);
  8000f68:	f107 010c 	add.w	r1, r7, #12
  8000f6c:	23ff      	movs	r3, #255	; 0xff
  8000f6e:	2203      	movs	r2, #3
  8000f70:	4865      	ldr	r0, [pc, #404]	; (8001108 <main+0x338>)
  8000f72:	f001 feb8 	bl	8002ce6 <HAL_UART_Transmit>
-	   	HAL_UART_Transmit(&huart1, (uint8_t *)snum1, 10, 100); // ok
+	  HAL_UART_Transmit(&huart1, (uint8_t *)&temp, 10, 100); // ok
  8000f76:	f107 0114 	add.w	r1, r7, #20
  8000f7a:	2364      	movs	r3, #100	; 0x64
  8000f7c:	220a      	movs	r2, #10
  8000f7e:	4862      	ldr	r0, [pc, #392]	; (8001108 <main+0x338>)
  8000f80:	f001 feb1 	bl	8002ce6 <HAL_UART_Transmit>
-	   	HAL_UART_Transmit(&huart1, CRLFbuff, 2, 0xFF); // ok
+	  HAL_UART_Transmit(&huart1, CRLFbuff, 2, 0xFF); // ok
  8000f84:	f107 0110 	add.w	r1, r7, #16
  8000f88:	23ff      	movs	r3, #255	; 0xff
  8000f8a:	2202      	movs	r2, #2
@@ -1617,10 +1611,10 @@ int main(void)
  8000fb4:	4618      	mov	r0, r3
  8000fb6:	f7ff fe49 	bl	8000c4c <Lcd_cursor>
 
-	  char snum[5];
+	  char s_vagas[5];
 
 	  // convert 123 to string [buf]
-	  itoa(vagas, snum, 10);
+	  itoa(vagas, s_vagas, 10);
  8000fba:	1d3b      	adds	r3, r7, #4
  8000fbc:	220a      	movs	r2, #10
  8000fbe:	4619      	mov	r1, r3
@@ -1628,11 +1622,11 @@ int main(void)
  8000fc2:	f002 f83d 	bl	8003040 <itoa>
 
 	  // print our string
-	  printf("%s\n", snum);
+	  printf("%s\n", s_vagas);
  8000fc6:	1d3b      	adds	r3, r7, #4
  8000fc8:	4618      	mov	r0, r3
  8000fca:	f002 f89f 	bl	800310c <puts>
-	  Lcd_string(&lcd, snum);
+	  Lcd_string(&lcd, s_vagas);
  8000fce:	1d3a      	adds	r2, r7, #4
  8000fd0:	f107 031c 	add.w	r3, r7, #28
  8000fd4:	4611      	mov	r1, r2

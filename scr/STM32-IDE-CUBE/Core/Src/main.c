@@ -142,46 +142,36 @@ int main(void)
   while (1)
   {
 
-	  char snum1[5];
+	  char temp[5];
 	  adc_buffer = (float)HAL_ADC_GetValue(&hadc1)/8.215;
 
-	  // convert 123 to string [buf]
-	  itoa(adc_buffer, snum1, 10);
+	  itoa(adc_buffer, temp, 10);
 	  Lcd_cursor(&lcd, 0, 0);
 	  Lcd_string(&lcd,"TEMPERATURA");
 	  Lcd_cursor(&lcd, 1, 0);
-	  Lcd_string(&lcd,snum1);
+	  Lcd_string(&lcd,temp);
 	  HAL_Delay(50);
 	  Lcd_clear(&lcd);
 
-	//  unsigned char mdata[] = "TA";
-
-	//  cordinet = (float)adc_buffer /8.215;
-	//  sprintf((char *)usart_temp,"AN1:%.1f C \r\n",adc_buffer); // @suppress("Float formatting support")
-	//  HAL_UART_Transmit(&huart1,&mdata,1,100);
-
-
-	//   	uint16_t buffer_size = strlen(&mdata);
-	   	uint8_t CRLFbuff[] = "\r\n";
-	   	uint8_t Tempbuff[] = "T: ";
-
-	   	HAL_UART_Transmit(&huart1, Tempbuff, 3, 0xFF);
-	   	HAL_UART_Transmit(&huart1, (uint8_t *)snum1, 10, 100); // ok
-	   	HAL_UART_Transmit(&huart1, CRLFbuff, 2, 0xFF); // ok
+	  uint8_t CRLFbuff[] = "\r\n";
+	  uint8_t Tempbuff[] = "T: ";
+	  HAL_UART_Transmit(&huart1, Tempbuff, 3, 0xFF);
+	  HAL_UART_Transmit(&huart1, (uint8_t *)&temp, 10, 100); // ok
+	  HAL_UART_Transmit(&huart1, CRLFbuff, 2, 0xFF); // ok
 
 
 	  Lcd_cursor(&lcd, 0, 0);
 	  Lcd_string(&lcd,"VAGAS");
 	  Lcd_cursor(&lcd, 1, 0);
 
-	  char snum[5];
+	  char s_vagas[5];
 
 	  // convert 123 to string [buf]
-	  itoa(vagas, snum, 10);
+	  itoa(vagas, s_vagas, 10);
 
 	  // print our string
-	  printf("%s\n", snum);
-	  Lcd_string(&lcd, snum);
+	  printf("%s\n", s_vagas);
+	  Lcd_string(&lcd, s_vagas);
 	  HAL_Delay(100);
 	  Lcd_clear(&lcd);
 
