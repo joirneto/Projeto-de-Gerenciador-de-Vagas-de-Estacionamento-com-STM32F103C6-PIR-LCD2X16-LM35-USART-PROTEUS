@@ -160,7 +160,7 @@ int main(void)
 			  Lcd_cursor(&lcd, 0, 0);
 			  Lcd_string(&lcd,"VAGAS");
 			  Lcd_cursor(&lcd, 1, 0);
-			  Lcd_string(&lcd,"DIPONIVEIS= ");
+			  Lcd_string(&lcd,"DISPONIVEIS= ");
 			  // Convertendo de inteiro para String
 			  itoa(vagas, s_vagas, 10);
 			  Lcd_cursor(&lcd, 1, 12);
@@ -275,7 +275,7 @@ int main(void)
 		  Lcd_cursor(&lcd, 0, 0);
 		  Lcd_string(&lcd,"INCENDIO");
 		  Lcd_cursor(&lcd, 1, 0);
-		  Lcd_string(&lcd,"EVACUAR NOW!");
+		  Lcd_string(&lcd,"EVACUAR NOW!	");
 		  HAL_Delay(50);
 		  Lcd_clear(&lcd);
 	  }
