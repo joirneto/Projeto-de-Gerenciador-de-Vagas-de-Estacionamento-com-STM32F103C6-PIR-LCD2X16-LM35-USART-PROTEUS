@@ -3,7 +3,7 @@ Projeto da disciplina de Sistemas Microprocessados - Engenharia de Computação 
 
 Projeto consiste em simular um estacionamento de veículos. Controlando a entrada e saída de veículos.
 Utilizamos para este projeto:
-* <a href="https://www.st.com/en/ecosystems/stm32cube.html>STM32Cube</a>
+* <a href="https://www.st.com/en/ecosystems/stm32cube.html">STM32Cube</a>
 * <a href="https://www.labcenter.com/">Proteus</a>
 * <a href="https://www.st.com/en/microcontrollers-microprocessors/stm32f103c6.html">microcontrolador stm32f103c6</a>
 <img src="https://github.com/joirneto/Projeto-de-Gerenciador-de-Vagas-de-Estacionamento-com-STM32F103C6-SENSOR-PIR-PROTEUS/blob/main/images/smt32f103c6.jpg" width="200" height="200"/>
