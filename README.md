@@ -13,7 +13,7 @@ Utilizamos para este projeto:
 
 Realizamos a inclusão ao projeto um sensor de temperatura, que utiliza uma entrada ACD do smt32 e a utilização de comunicação via USART.
 * LM35
-<img src="https://github.com/joirneto/Projeto-de-Gerenciador-de-Vagas-de-Estacionamento-com-STM32F103C6-SENSOR-PIR-PROTEUS/blob/main/images/LCD%202x16.jpg">
+<img src="https://github.com/joirneto/Projeto-de-Gerenciador-de-Vagas-de-Estacionamento-com-STM32F103C6-SENSOR-PIR-PROTEUS/blob/main/images/LM35.png">
 
 
 
