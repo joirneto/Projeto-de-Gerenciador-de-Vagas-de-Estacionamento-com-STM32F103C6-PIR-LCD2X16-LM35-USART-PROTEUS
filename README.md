@@ -8,6 +8,9 @@ Utilizamos para este projeto:
 <img src="https://github.com/joirneto/Projeto-de-Gerenciador-de-Vagas-de-Estacionamento-com-STM32F103C6-SENSOR-PIR-PROTEUS/blob/main/images/smt32f103c6.jpg" width="200" height="200"/>
 * <a href="https://www.theengineeringprojects.com/2016/01/pir-sensor-library-proteus.html">PIR Sensor Library for Proteus</a>
 <img src="https://github.com/joirneto/Projeto-de-Gerenciador-de-Vagas-de-Estacionamento-com-STM32F103C6-SENSOR-PIR-PROTEUS/blob/main/images/PIR-Sensor-Library-for-Proteus-214x300.jpg">
+* LCD 16×2 (LM016L)
+<img src="https://github.com/joirneto/Projeto-de-Gerenciador-de-Vagas-de-Estacionamento-com-STM32F103C6-SENSOR-PIR-PROTEUS/blob/main/images/LCD%202x16.jpg">
+
 
 
 
