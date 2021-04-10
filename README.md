@@ -39,6 +39,6 @@ Realizamos a inclusão ao projeto um sensor de temperatura, simulando um sinistr
 - PB6 e PB7 Configuradas para USART, mode Asynchronous.
 
 
-
+** <a href="https://www.labcenter.com/">Execução do Projeto, simulação e resultados obtidos.</a>
 
 
