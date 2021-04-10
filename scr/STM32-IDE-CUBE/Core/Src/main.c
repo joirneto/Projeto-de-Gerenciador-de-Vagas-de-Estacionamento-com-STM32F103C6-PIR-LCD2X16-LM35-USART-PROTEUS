@@ -22,6 +22,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+
+//INCLUSÃO DA BIBLIOTECA PARA UTILIZAÇÃO DO LCD 2X16
 #include "lcd.h"
 #include "stdio.h"
 
@@ -43,6 +45,8 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+
+//CRIANDO AS VARIÁVEIS PARA ACD E USART
 ADC_HandleTypeDef hadc1;
 
 UART_HandleTypeDef huart1;
@@ -62,11 +66,11 @@ static void MX_USART1_UART_Init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-uint8_t usart_temp[17];
-int adc_buffer;
-float cordinet;
 
-
+// CRIANDO AS VARIÁVEIS DE TRABALHO
+static int adc_buffer;
+static char s_vagas[5];
+static char temp[5];
 
 /* USER CODE END 0 */
 
@@ -77,7 +81,6 @@ float cordinet;
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-	int vagas = 5;
 
   /* USER CODE END 1 */
 
@@ -102,8 +105,14 @@ int main(void)
   MX_ADC1_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
+
+  //INICIALIZANDO A VARIÁVEL COM O NÚMERO DE VAGAS
+  int vagas = 5;
+
+  //INICIALIZANDO O ACD
   HAL_ADC_Start(&hadc1);
 
+  //CONFIGURADO AS GPIOs  -- GPIOA RENOMEADAS COM AS IDENTIFICAÇÕES DO LCD
   Lcd_PortType ports [] = {
 		D4_GPIO_Port,
 		D5_GPIO_Port,
@@ -111,6 +120,7 @@ int main(void)
 		D7_GPIO_Port
   };
 
+  //CONFIGURADO OS PINOS DO LCD
   Lcd_PinType pins [] = {
 		D4_Pin,
 		D5_Pin,
@@ -118,7 +128,10 @@ int main(void)
 		D7_Pin
   };
 
+  //CONFIGURADO OS PINOS DO LCD COM AS GPIOs
   Lcd_HandleTypeDef lcd = Lcd_create(ports, pins, RS_GPIO_Port, RS_Pin, EN_GPIO_Port, EN_Pin, LCD_4_BIT_MODE);
+
+  //PARA IMPRIMIR NO LCD - PASSAR O ENDEREÇO DO OBJETO E A POSIÇÃO DO CURSOR
   Lcd_cursor(&lcd, 0, 0);
   Lcd_string(&lcd,"ESTACIONAMENTO");
   Lcd_cursor(&lcd, 1, 0);
@@ -141,73 +154,131 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  if(((float)HAL_ADC_GetValue(&hadc1)/8.215)<=30){
+		  if(vagas!=0){
+			  //IMPRIMINDO O NÚMEROS DE VAGAS NO LCD
+			  Lcd_cursor(&lcd, 0, 0);
+			  Lcd_string(&lcd,"VAGAS");
+			  Lcd_cursor(&lcd, 1, 0);
+			  Lcd_string(&lcd,"DIPONIVEIS= ");
+			  // Convertendo de inteiro para String
+			  itoa(vagas, s_vagas, 10);
+			  Lcd_cursor(&lcd, 1, 12);
+			  Lcd_string(&lcd, s_vagas);
+			  HAL_Delay(100);
+			  Lcd_clear(&lcd);
 
-	  char temp[5];
-	  adc_buffer = (float)HAL_ADC_GetValue(&hadc1)/8.215;
+			  //VERIFICANDO SE OCORREU ENTRADA DE VEÍCULOS
+			  if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_0)){
+				 if(vagas!=0){
+					 vagas--;
+					 while(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_0)){
+						 Lcd_cursor(&lcd, 0, 0);
+						 Lcd_string(&lcd,"AGUARDE");
+					 }
+					 Lcd_clear(&lcd);
+					 Lcd_cursor(&lcd, 0, 0);
+					 Lcd_string(&lcd,"SIGA EM FRETE");
+					 HAL_Delay(50);
+				 }
+				 else{
+					 Lcd_cursor(&lcd, 0, 0);
+					 Lcd_string(&lcd,"LOTADO");
+					 HAL_Delay(100);
+				 }
 
-	  itoa(adc_buffer, temp, 10);
-	  Lcd_cursor(&lcd, 0, 0);
-	  Lcd_string(&lcd,"TEMPERATURA");
-	  Lcd_cursor(&lcd, 1, 0);
-	  Lcd_string(&lcd,temp);
-	  HAL_Delay(50);
-	  Lcd_clear(&lcd);
+				 Lcd_clear(&lcd);
+			  }
 
-	  uint8_t CRLFbuff[] = "\r\n";
-	  uint8_t Tempbuff[] = "T: ";
-	  HAL_UART_Transmit(&huart1, Tempbuff, 3, 0xFF);
-	  HAL_UART_Transmit(&huart1, (uint8_t *)&temp, 10, 100); // ok
-	  HAL_UART_Transmit(&huart1, CRLFbuff, 2, 0xFF); // ok
+			  //VERIFICANDO SE OCORREU SAÍDA DE VEÍCULOS
+			  if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_1)){
+				  if(vagas<5){
+					vagas++;
+					while(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_1)){
+						 Lcd_cursor(&lcd, 0, 0);
+						 Lcd_string(&lcd,"AGUARDE");
+					 }
+					Lcd_clear(&lcd);
+					Lcd_cursor(&lcd, 0, 0);
+					Lcd_string(&lcd,"OBRIGADO");
+					Lcd_cursor(&lcd, 1, 0);
+					Lcd_string(&lcd,"VOLTE SEMPRE");
+					HAL_Delay(50);
+				  }
+				  else{
+					  Lcd_cursor(&lcd, 0, 0);
+					  Lcd_string(&lcd,"DISPONIVEL");
+					  HAL_Delay(100);
+				  }
+				  Lcd_clear(&lcd);
+			  }
 
+			  //Utilizando função HAL para coletar o valor de ACD
+			  //O sensor LM35 envia valores entre 0 e 1023
+			  //Portanto realizamos a conversão para o valor em graus dividindo por 8,125
+			  adc_buffer = (float)HAL_ADC_GetValue(&hadc1)/8.215;
 
-	  Lcd_cursor(&lcd, 0, 0);
-	  Lcd_string(&lcd,"VAGAS");
-	  Lcd_cursor(&lcd, 1, 0);
+			  //ENVIADO DADOS ATRAVÉS DA USART
+			  uint8_t CRLFbuff[] = " C\r\n";
+			  uint8_t Tempbuff[] = "T: ";
+			  HAL_UART_Transmit(&huart1, Tempbuff, 3, 0xFF);
+			  HAL_UART_Transmit(&huart1, (uint8_t*)temp, sprintf(temp, "%d",adc_buffer ), 100);
+			  HAL_UART_Transmit(&huart1, CRLFbuff, 3, 0xFF);
 
-	  char s_vagas[5];
-
-	  // convert 123 to string [buf]
-	  itoa(vagas, s_vagas, 10);
-
-	  // print our string
-	  printf("%s\n", s_vagas);
-	  Lcd_string(&lcd, s_vagas);
-	  HAL_Delay(100);
-	  Lcd_clear(&lcd);
-
-	  if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_0)){
-		 if(vagas!=0){
-			 vagas--;
-			 while(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_0)){
-				 Lcd_cursor(&lcd, 0, 0);
-				 Lcd_string(&lcd,"AGUARDE");
-			 }
-		 }
-		 else{
-			 Lcd_cursor(&lcd, 0, 0);
-			 Lcd_string(&lcd,"LOTADO");
-			 HAL_Delay(100);
-		 }
-
-		 Lcd_clear(&lcd);
-	  }
-	  if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_1)){
-		  if(vagas<5){
-			vagas++;
-			while(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_1)){
-				 Lcd_cursor(&lcd, 0, 0);
-				 Lcd_string(&lcd,"AGUARDE");
-			 }
+			  //IMPRIMINDO A TEMPERATURA NO LCD
+			  Lcd_cursor(&lcd, 0, 0);
+			  Lcd_string(&lcd,"TEMPERATURA");
+			  Lcd_cursor(&lcd, 1, 0);
+			  Lcd_string(&lcd,temp);
+			  Lcd_cursor(&lcd, 1, 2);
+			  Lcd_string(&lcd,"C");
+			  HAL_Delay(50);
+			  Lcd_clear(&lcd);
 		  }
 		  else{
+
+			  //IMPRIMINDO A ESTACIONAMENTO LOTADO
 			  Lcd_cursor(&lcd, 0, 0);
-			  Lcd_string(&lcd,"DISPONIVEL");
-			  HAL_Delay(100);
+			  Lcd_string(&lcd,"ESTACIONAMENTO");
+			  Lcd_cursor(&lcd, 1, 0);
+			  Lcd_string(&lcd,"LOTADO");
+			  HAL_Delay(50);
+			  Lcd_clear(&lcd);
+
+			  //VERIFICANDO SE OCORREU SAÍDA DE VEÍCULOS
+			  if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_1)){
+				  if(vagas<5){
+					vagas++;
+					while(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_1)){
+						 Lcd_cursor(&lcd, 0, 0);
+						 Lcd_string(&lcd,"AGUARDE");
+					 }
+					Lcd_clear(&lcd);
+					Lcd_cursor(&lcd, 0, 0);
+					Lcd_string(&lcd,"OBRIGADO");
+					Lcd_cursor(&lcd, 1, 0);
+					Lcd_string(&lcd,"VOLTE SEMPRE");
+					HAL_Delay(50);
+				  }
+				  else{
+					  Lcd_cursor(&lcd, 0, 0);
+					  Lcd_string(&lcd,"DISPONIVEL");
+					  HAL_Delay(100);
+				  }
+				  Lcd_clear(&lcd);
+			  }
+
 		  }
+	  }
+	  else{
+		  //IMPRIMINDO A INCENDIO
+		  Lcd_cursor(&lcd, 0, 0);
+		  Lcd_string(&lcd,"INCENDIO");
+		  Lcd_cursor(&lcd, 1, 0);
+		  Lcd_string(&lcd,"EVACUAR NOW!");
+		  HAL_Delay(50);
 		  Lcd_clear(&lcd);
 	  }
-
-
 
     /* USER CODE END WHILE */
 
