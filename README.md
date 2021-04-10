@@ -3,7 +3,8 @@ Projeto da disciplina de Sistemas Microprocessados - Engenharia de Computação 
 
 Projeto consiste em simular um estacionamento de veículos. Controlando a entrada e saída de veículos.
 Utilizamos para este projeto:
-* o simulador Proteus:
+* <a href="https://www.st.com/en/ecosystems/stm32cube.html>STM32Cube</a>
+* <a href="https://www.labcenter.com/">Proteus</a>
 * <a href="https://www.st.com/en/microcontrollers-microprocessors/stm32f103c6.html">microcontrolador stm32f103c6</a>
 <img src="https://github.com/joirneto/Projeto-de-Gerenciador-de-Vagas-de-Estacionamento-com-STM32F103C6-SENSOR-PIR-PROTEUS/blob/main/images/smt32f103c6.jpg" width="200" height="200"/>
 * <a href="https://www.theengineeringprojects.com/2016/01/pir-sensor-library-proteus.html">PIR Sensor Library for Proteus</a>
@@ -23,6 +24,8 @@ Realizamos a inclusão ao projeto um sensor de temperatura, simulando um sinistr
 
 <img src="https://github.com/joirneto/Projeto-de-Gerenciador-de-Vagas-de-Estacionamento-com-STM32F103C6-SENSOR-PIR-PROTEUS/blob/main/images/Projeto%20Proteus.jpg" width="600" height="600">
 
+**CONFIGURAÇÃO STM32CUBE-IDE**
+https://github.com/joirneto/Projeto-de-Gerenciador-de-Vagas-de-Estacionamento-com-STM32F103C6-PIR-LCD2X16-LM35-USART-PROTEUS/blob/main/images/Configura%C3%A7%C3%A3o%20stm32.png
 
 
 
