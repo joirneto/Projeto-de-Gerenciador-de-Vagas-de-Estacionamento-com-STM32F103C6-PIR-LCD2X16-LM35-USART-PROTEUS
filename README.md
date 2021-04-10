@@ -19,7 +19,7 @@ Realizamos a inclusão ao projeto um sensor de temperatura, simulando um sinistr
 <img src="https://github.com/joirneto/Projeto-de-Gerenciador-de-Vagas-de-Estacionamento-com-STM32F103C6-PIR-LCD2X16-LM35-USART-PROTEUS/blob/main/images/BPMN%202.0.jpeg">
 
 
-PROJETO PROTEUS
+**PROJETO PROTEUS**
 <img src="https://github.com/joirneto/Projeto-de-Gerenciador-de-Vagas-de-Estacionamento-com-STM32F103C6-SENSOR-PIR-PROTEUS/blob/main/images/Projeto%20Proteus.jpg" width="600" height="600">
 
 
