@@ -2,9 +2,11 @@
 Projeto da disciplina de Sistemas Microprocessados - Engenharia de Computação UFC
 
 Projeto consiste em simular um estacionamento de veículos. Controlando a entrada e saída de veículos.
-Utilizamos para este projeto o simulador Proteus, <a href="https://www.st.com/en/microcontrollers-microprocessors/stm32f103c6.html">microcontrolador stm32f103c6</a> <img src="https://github.com/joirneto/Projeto-de-Gerenciador-de-Vagas-de-Estacionamento-com-STM32F103C6-SENSOR-PIR-PROTEUS/blob/main/images/smt32f103c6.jpg" width="200" height="200"/>, 
+Utilizamos para este projeto:
+* o simulador Proteus:
+* <a href="https://www.st.com/en/microcontrollers-microprocessors/stm32f103c6.html">microcontrolador stm32f103c6</a> <img src="https://github.com/joirneto/Projeto-de-Gerenciador-de-Vagas-de-Estacionamento-com-STM32F103C6-SENSOR-PIR-PROTEUS/blob/main/images/smt32f103c6.jpg" width="200" height="200"/>
+* 
 
-src="https://gyazo.com/eb5c5741b6a9a16c692170a41a49c858.png" width="200" height="400" />
 
 
 
