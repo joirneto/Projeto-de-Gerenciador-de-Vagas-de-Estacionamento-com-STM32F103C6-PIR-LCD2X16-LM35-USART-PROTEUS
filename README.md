@@ -11,6 +11,10 @@ Utilizamos para este projeto:
 * LCD 16×2 (LM016L) - FONTE: <a href="https://controllerstech.com/">Library LCD 2x16</a> - FONTE: <a href="https://embeddedcenter.wordpress.com/ece-study-centre/display-module/lcd-16x2-lm016l/">Sobre: LCD 2x16</a>
 <img src="https://github.com/joirneto/Projeto-de-Gerenciador-de-Vagas-de-Estacionamento-com-STM32F103C6-SENSOR-PIR-PROTEUS/blob/main/images/LCD%202x16.jpg">
 
+Realizamos a inclusão ao projeto um sensor de temperatura, que utiliza uma entrada ACD do smt32 e a utilização de comunicação via USART.
+* LM35
+<img src="https://github.com/joirneto/Projeto-de-Gerenciador-de-Vagas-de-Estacionamento-com-STM32F103C6-SENSOR-PIR-PROTEUS/blob/main/images/LCD%202x16.jpg">
+
 
 
 
