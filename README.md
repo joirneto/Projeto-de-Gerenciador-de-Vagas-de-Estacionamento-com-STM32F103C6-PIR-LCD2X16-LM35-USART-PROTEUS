@@ -48,7 +48,8 @@ Por fim, realizamos a representação da conexão entre os sensores e o microcon
 
 **Video com a execução do Projeto e resultados obtidos.**
 
-[![Watch the video](https://img.youtube.com/vi/T-D1KVIuvjA/maxresdefault.jpg)](https://youtu.be/T-D1KVIuvjA)
+[![Watch the video](https://img.youtube.com/vi/xZdpoYqQcy8/maxresdefault.jpg)](https://youtu.be/xZdpoYqQcy8)
+
 
 
 
