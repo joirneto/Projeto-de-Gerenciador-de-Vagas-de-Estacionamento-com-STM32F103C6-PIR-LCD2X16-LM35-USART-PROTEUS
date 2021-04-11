@@ -16,7 +16,9 @@ Realizamos a inclusão ao projeto um sensor de temperatura, simulando um sinistr
 * LM35
 <img src="https://github.com/joirneto/Projeto-de-Gerenciador-de-Vagas-de-Estacionamento-com-STM32F103C6-SENSOR-PIR-PROTEUS/blob/main/images/LM35.png">
 
-Por fim, realizamos a representação da conexão entre os sensores e o microcontrador em grandes distâncias, implementando o <a href="https://www.ti.com/lit/ds/symlink/max232.pdf?ts=1618077179451&ref_url=https%253A%252F%252Fwww.ti.com%252Fproduct%252FMAX232%253Futm_source%253Dsupplyframe%2526utm_medium%253DSEP%2526utm_campaign%253Dnot_alldatasheet%2526DCM%253Dyes%2526dclid%253DCOr3nMv08-8CFUswuQYd2tIO5g">MAX232</a>, <img src="https://github.com/joirneto/Projeto-de-Gerenciador-de-Vagas-de-Estacionamento-com-STM32F103C6-PIR-LCD2X16-LM35-USART-PROTEUS/blob/main/images/MAX232.jpg">.
+Por fim, realizamos a representação da conexão entre os sensores e o microcontrador em grandes distâncias, implementando o <a href="https://www.ti.com/lit/ds/symlink/max232.pdf?ts=1618077179451&ref_url=https%253A%252F%252Fwww.ti.com%252Fproduct%252FMAX232%253Futm_source%253Dsupplyframe%2526utm_medium%253DSEP%2526utm_campaign%253Dnot_alldatasheet%2526DCM%253Dyes%2526dclid%253DCOr3nMv08-8CFUswuQYd2tIO5g">MAX232</a>
+
+<img src="https://github.com/joirneto/Projeto-de-Gerenciador-de-Vagas-de-Estacionamento-com-STM32F103C6-PIR-LCD2X16-LM35-USART-PROTEUS/blob/main/images/MAX232.jpg">.
 
 **DIAGRAMA DE BLOCOS**
 <img src="https://github.com/joirneto/Projeto-de-Gerenciador-de-Vagas-de-Estacionamento-com-STM32F103C6-PIR-LCD2X16-LM35-USART-PROTEUS/blob/main/images/BPMN%202.0.jpeg">
