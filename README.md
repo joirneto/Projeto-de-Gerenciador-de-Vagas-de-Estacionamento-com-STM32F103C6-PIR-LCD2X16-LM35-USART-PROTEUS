@@ -46,4 +46,7 @@ Por fim, realizamos a representação da conexão entre os sensores e o microcon
 
 <a href="https://www.labcenter.com/"> Link do youtube com a Execução do Projeto, simulação e resultados obtidos.</a>
 
+[![Watch the video](https://img.youtube.com/vi/T-D1KVIuvjA/maxresdefault.jpg)](https://youtu.be/T-D1KVIuvjA)
+
+
 
