@@ -170,6 +170,7 @@ int main(void)
 
 			  //VERIFICANDO SE OCORREU ENTRADA DE VEÍCULOS
 			  if(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_0)){
+				  vagas--;
 				  while(HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_0)){
 					 Lcd_cursor(&lcd, 0, 0);
 					 Lcd_string(&lcd,"AGUARDE");
