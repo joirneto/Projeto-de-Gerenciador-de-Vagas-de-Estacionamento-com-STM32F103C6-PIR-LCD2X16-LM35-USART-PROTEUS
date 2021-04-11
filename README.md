@@ -1,4 +1,4 @@
-# Projeto-de-Gerenciador-de-Vagas-de-Estacionamento-com-STM32F103C6-SENSOR-PIR-PROTEUS
+# Projeto-de-Gerenciador-de-Vagas-de-Estacionamento-com-STM32F103C6-PIR-LCD2X16-LM35-USART-PROTEUS
 Projeto da disciplina de Sistemas Microprocessados - Engenharia de Computação UFC
 
 Projeto consiste em simular um estacionamento de veículos. Controlando a entrada e saída de veículos.
